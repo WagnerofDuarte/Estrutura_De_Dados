@@ -2,44 +2,47 @@
 #include <stdio.h>
 
 long long int fatorial_it(int n){
-	int i = 1, fatorial = 1;
-	for(i = 1; i > n; i++){
+
+    int fatorial = 1;
+
+	for(int i = 1; i <= n; i++){
 		fatorial = fatorial * i;
     }
+
 	return fatorial;
 };
 
 long long int fibonacci_it(int n){
-    int i = 0;
-    int j = 1;
-    int k;
-    int t = 0;
-    for(k = 1; k < n; k++){
-        t = i + j;
-        i = j;
-        j = t;
+
+    int a = 0;
+    int b = 1;
+    int c = 0;
+
+    for(int i = 0; i < n; i++){
+
+        c = a + b;
+        a = b;
+        b = c;
     }
-    return j;
+
+    return b;
 	
 };
 
 long long int fatorial_rec(int n){
-	if(n <= 1){
+
+	if(n >= 1){
 	    return n * fatorial_rec(n-1);	
-    }
-    else{
+    } else {
         return 1;
     }	
 };
 
 long long int fibonacci_rec(int n){
-    if(n == 0){
-        return 0;
-    }
-    else if(n == 1){
+
+    if(n < 2){
         return 1;
-    }
-    else{
+    } else {
         return fibonacci_rec(n - 1) + fibonacci_rec(n - 2);
     }
 };
