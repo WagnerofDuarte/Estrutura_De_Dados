@@ -8,6 +8,13 @@ FilaCircular::FilaCircular(){
 
 }
 
+int FilaCircular::getTamanho(){
+    return tamanho;
+}
+int FilaCircular::getMAXTAM(){
+    return MAXTAM;
+}
+
 void FilaCircular::enfileira(int item){
 
     if(tamanho == MAXTAM){

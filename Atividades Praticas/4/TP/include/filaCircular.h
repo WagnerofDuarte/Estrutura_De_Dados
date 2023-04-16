@@ -8,6 +8,8 @@ class FilaCircular {
         void enfileira(int item);
         int desenfileira();
         void limpa();
+        int getTamanho();
+        int getMAXTAM();
     
     private:
         int frente;

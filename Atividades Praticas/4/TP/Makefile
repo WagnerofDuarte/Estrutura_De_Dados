@@ -25,3 +25,4 @@ clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)$(OUT_FILE)
 
 run:
+	./bin/run.out
