@@ -4,8 +4,8 @@ Expressao::Expressao(string _expressaoString){
     expressaoString = _expressaoString;
     infixaOuPosfixa = validarExpressao();
     expressao = Fila();
-    expressao.enfileira(-1);
-    
+    expressao.enfileira('z');
+
     transformarExpressaoEmFila(); //Instanciar a TAD que ira armazenar a expressao
 }
 
@@ -14,7 +14,7 @@ Expressao::~Expressao() {
 }
 
 int Expressao::validarExpressao(){
-
+    
 }
 
 int Expressao::convertePraPosFixa(){

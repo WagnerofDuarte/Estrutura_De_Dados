@@ -5,7 +5,7 @@ using namespace std;
 
 Fila::Fila() {
 
-    frente = new CelulaNumero(0, NULL);
+    frente = new CelulaFila(0, NULL);
     tras = frente;
     tamanho = -1;
 }
@@ -13,7 +13,7 @@ Fila::Fila() {
 Fila::~Fila() {
 
     limpa();
-    delete frente;
+    //delete frente;
 
 }
 
@@ -31,40 +31,44 @@ bool Fila::vazia(){
 
 }
 
-void Fila::enfileira(double numero){
+void Fila::enfileira(char _caractere){
 
-    CelulaNumero *novaCelula;
+    CelulaFila *novaCelula;
 
-    novaCelula = new CelulaNumero(numero, nullptr);
+    novaCelula = new CelulaFila(_caractere, nullptr);
     tras->setProx(novaCelula);
     tras = novaCelula;
     
+    cout << "Enfileirou: " << tras->getCaractere() << endl;
+
     tamanho++;
 }
 
-double Fila::desenfileira(){
+char Fila::desenfileira(){
 
-    CelulaNumero *celula;
-    double numero;
+    CelulaFila *celula;
+    char caractere;
 
     if(tamanho == 0){
         return 0;
     }
 
-    numero = frente->getProx()->getNumero();
+    caractere = frente->getProx()->getCaractere();
     celula = frente;
     frente = frente->getProx();
 
     delete celula;
     tamanho --;
 
-    return numero;
+    cout << "Desenfileirou: " << caractere << endl;
+
+    return caractere;
 
 }
 
 void Fila::limpa(){
 
-    CelulaNumero *aux;
+    CelulaFila *aux;
 
     aux = frente->getProx();
 

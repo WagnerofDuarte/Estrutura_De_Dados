@@ -1,15 +1,15 @@
 #ifndef FILA
 #define FILA
 
-#include <CelulaNumero.h>
+#include <CelulaFila.h>
 
 class Fila {
 
     private:
         /* ATRIBUTOS */
         int tamanho;
-        CelulaNumero* frente;
-        CelulaNumero* tras;
+        CelulaFila* frente;
+        CelulaFila* tras;
 
     public:
         /* CONSTRUTOR E DESTRUTOR */
@@ -19,8 +19,8 @@ class Fila {
         int getTamanho();
         bool vazia();
 
-        void enfileira(double numero);
-        double desenfileira();
+        void enfileira(char _caractere);
+        char desenfileira();
         void limpa();
 };
 

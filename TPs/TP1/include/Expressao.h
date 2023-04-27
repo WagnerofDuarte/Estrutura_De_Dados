@@ -4,6 +4,7 @@
 #include <string>
 #include <Pilha.h>
 #include <Fila.h>
+#include <Arvore.h>
 
 using namespace std;
 

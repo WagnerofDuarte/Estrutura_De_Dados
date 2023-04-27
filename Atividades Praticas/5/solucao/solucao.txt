@@ -1,0 +1,15 @@
+A ideia é:
+
+A partir dos vetores de Pré e Pós Ordem o seguinte será feito:
+
+Define-se:
+1) Um suposto Descendente
+2) Um suposto Ancestral
+
+1) Em um vetor Pré-Ordem, todos os elementos depois dele sao POTENCIAIS descendentes
+2) Em um vetor Pos-Ordem, todos os elementos antes dele sao POTENCIAIS descendentes
+
+Passo 1: Cria-se um subvetor de Pre-Ordem de todos os elemntos depois do suposto ancestral
+Passo 2: Cria-se um subvetor de Pos-Ordem de todos os elemntos antes do suposto ancestral 
+Passo 3: Faz uma intersecao dos dois subvetores dos passos 1 e 2
+Passo4: Se o elemento "suposto Descendente" estiver em ambos os vetores, o suposto Ancestral é de fato ancestral dele

@@ -26,33 +26,37 @@ int Pilha::getTamanho(){
     return tamanho;
 }
 
-void Pilha::empilha(double numero){
+void Pilha::empilha(char caractere){
 
-    CelulaNumero *celula;
-    celula = new CelulaNumero(numero, topo);
+    CelulaPilha *celula;
+    celula = new CelulaPilha(caractere, topo);
     topo = celula;
+
+    cout << "Empilhou: " << topo->getCaractere() << endl;
 
     tamanho++;
 
 }
 
-double Pilha::desempilha(){
+char Pilha::desempilha(){
 
-    double numero;
-    CelulaNumero *celula;
+    char caractere;
+    CelulaPilha *celula;
 
     if(tamanho == 0){
         return 0;
     }
 
-    numero = topo->getNumero();
+    caractere = topo->getCaractere();
     celula = topo;
     topo = topo = topo->getProx();
+
+    cout << "Desempilhou: " << caractere << endl;
 
     delete celula;
     tamanho--;
 
-    return numero;
+    return caractere;
 
 }
 void Pilha::limpa(){
