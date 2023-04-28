@@ -38,9 +38,6 @@ void Fila::enfileira(char _caractere){
     novaCelula = new CelulaFila(_caractere, nullptr);
     tras->setProx(novaCelula);
     tras = novaCelula;
-    
-    cout << "Enfileirou: " << tras->getCaractere() << endl;
-
     tamanho++;
 }
 

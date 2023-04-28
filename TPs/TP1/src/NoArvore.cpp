@@ -3,8 +3,8 @@
 NoArvore::NoArvore(char _caractere){
 
     caractere = _caractere;
-    //esq = NULL;
-    //dir = NULL;
+    esq = NULL;
+    dir = NULL;
 
 }
 

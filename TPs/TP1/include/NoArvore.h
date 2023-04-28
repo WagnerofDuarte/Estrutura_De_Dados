@@ -3,13 +3,13 @@
 
 #include <iostream>
 
+using namespace std;
+
 class NoArvore {
 
     private:
         /* ATRIBUTOS */
         char caractere;
-        //NoArvore *esq;
-        //NoArvore *dir;
 
     public:
 

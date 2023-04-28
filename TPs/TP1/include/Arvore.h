@@ -8,17 +8,18 @@ class Arvore {
 
     private:
         /* ATRIBUTOS */
-        NoArvore *raiz;
 
     public:
         /* CONSTRUTOR E DESTRUTOR */
+        NoArvore *raiz;
+
         Arvore();
         ~Arvore();
 
         NoArvore* getRaiz();
 
         /* MÉTODOS */
-        bool InsereExpressaoPosFixa(NoArvore* no, char caractere);
+        bool InsereExpressaoPosFixa(NoArvore* &no, char caractere);
         void limpa();
 
         void leInFixa(NoArvore* no);
