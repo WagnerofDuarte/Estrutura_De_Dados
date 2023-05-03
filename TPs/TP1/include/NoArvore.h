@@ -10,7 +10,7 @@ class NoArvore {
     private:
         /* ATRIBUTOS */
         char caractere;
-
+        double num;
     public:
 
         NoArvore *esq;
@@ -21,6 +21,9 @@ class NoArvore {
 
         char getCaractere();
         void setCaractere(char _caractere);
+
+        double getNum();
+        void setNum(double _num);
 
         NoArvore *getEsq();
         NoArvore *getDir();

@@ -5,9 +5,9 @@ using namespace std;
 
 Fila::Fila() {
 
-    frente = new CelulaFila(0, NULL);
+    frente = new CelulaFila(0, 0, NULL);
     tras = frente;
-    tamanho = -1;
+    tamanho = 0;
 }
 
 Fila::~Fila() {
@@ -31,14 +31,17 @@ bool Fila::vazia(){
 
 }
 
-void Fila::enfileira(char _caractere){
+void Fila::enfileira(char _caractere, double _num){
 
     CelulaFila *novaCelula;
 
-    novaCelula = new CelulaFila(_caractere, nullptr);
+    novaCelula = new CelulaFila(_caractere, _num, NULL);
     tras->setProx(novaCelula);
     tras = novaCelula;
     tamanho++;
+
+    cout << "Enfileirou: " << novaCelula->getCaractere() << endl;
+
 }
 
 char Fila::desenfileira(){

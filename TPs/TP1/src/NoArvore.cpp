@@ -36,3 +36,15 @@ void NoArvore::setDir(NoArvore *_dir){
     dir = _dir;
 }
 
+double NoArvore::getNum(){
+
+    return num;
+
+}
+
+void NoArvore::setNum(double _num){
+
+    num = _num;
+
+}
+

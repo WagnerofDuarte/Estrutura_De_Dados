@@ -19,7 +19,7 @@ class Fila {
         int getTamanho();
         bool vazia();
 
-        void enfileira(char _caractere);
+        void enfileira(char _caractere, double _num);
         char desenfileira();
         void limpa();
 };

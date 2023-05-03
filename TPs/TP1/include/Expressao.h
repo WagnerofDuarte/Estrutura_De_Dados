@@ -5,6 +5,8 @@
 #include <Pilha.h>
 #include <Fila.h>
 #include <Arvore.h>
+#include <Lista.h>
+#include <fstream>
 
 using namespace std;
 
@@ -12,26 +14,30 @@ class Expressao {
 
     private:
         /* ATRIBUTOS */
-        string expressaoString;
-        bool infixaOuPosfixa;
+        int infixaOuPosfixa;
         double resultadoExpressao;
-        Fila expressao;
+        Lista *expressao;
+        Fila *posFixa;
+        Arvore *inFixa;
 
     public:
         /* CONSTRUTOR E DESTRUTOR */
-        Expressao(string _expressaoString); //CONSTRUTOR
+        Expressao(string nomeDoArquivo); //CONSTRUTOR
         ~Expressao(); //DESTRUTOR
 
         /* MÉTODOS */
-        int validarExpressao(); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
-
-        void transformarExpressaoEmFila();
+        int validacaoDeExpressao(string nomeDoArquivo); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
+        int armazenaExpressao(string nomeDoArquivo);
 
         int convertePraPosFixa();
         int convertePraInFixa();
 
-        int ResolvePosFixa(); // Usando TAD pilhas
-        int ResolveInFixa(); // Usando TAD ???
+        int resolvePosFixa(); // Usando TAD pilhas
+        int resolveInFixa(); // Usando TAD Arvore
+
+        bool eNumero(char c);
+
+        CelulaLista* converteNum(CelulaLista* aux);
 
 };
 
