@@ -24,15 +24,16 @@ class Expressao {
 
     public:
         /* CONSTRUTOR E DESTRUTOR */
-        Expressao(char expressaoChar[1000], int k); //CONSTRUTOR
+        Expressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa); //CONSTRUTOR
         ~Expressao(); //DESTRUTOR
 
         /* MÉTODOS */
-        int validacaoDeExpressao(char expressaoChar[1000]); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
+        int validacaoDeExpressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
         int armazenaExpressao(char expressaoChar[1000]);
 
-        int recuperaExpressaoPosFixa();
-        int converteExpressao();
+        void imprimirExpressao(char expressaoChar[1000], int tamanho);
+
+        int converteExpressao(int _infixaOuPosfixa);
         int convertePraPosFixa(NoArvore* no);
         int convertePraInFixa();
 
@@ -41,6 +42,9 @@ class Expressao {
         int resolveInFixa(); // Usando TAD Arvore
 
         bool eNumero(char c);
+        bool eOperador(char c);
+
+        int getTamanhoExpressao();
 
         CelulaLista* converteNum(CelulaLista* aux);
 

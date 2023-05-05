@@ -1,31 +1,31 @@
 #include <Expressao.h>
 
-Expressao::Expressao(char expressaoChar[1000], int k){
+Expressao::Expressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa){
 
-    tamanhoExpressao = k;
+    tamanhoExpressao = tamanho;
+    infixaOuPosfixa = _infixaOuPosfixa;
+    expressaoInfixaOuPosfixa = _infixaOuPosfixa;
 
-    validacaoDeExpressao(expressaoChar);
+    expressao = new Lista();
+    posFixa = new Fila();
+    inFixa = new Arvore();
 
-    if(infixaOuPosfixa == 0){
-
-        cout << "ERRO: EXP NAO VALIDA" << endl;
-
-    } else {
-
-        expressao = new Lista();
-        posFixa = new Fila();
-        inFixa = new Arvore();
-
-        armazenaExpressao(expressaoChar);
-
-    }
+    armazenaExpressao(expressaoChar);
 }
 
 Expressao::~Expressao() {
 
 }
 
-int Expressao::validacaoDeExpressao(char expressaoChar[1000]){
+void Expressao::imprimirExpressao(char expressaoChar[1000], int tamanho){
+
+    for(int i = 0; i < tamanho; i++){
+        cout << expressaoChar[i];
+    }
+
+}
+
+int Expressao::validacaoDeExpressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa){
 
     int i = 0;
 
@@ -35,17 +35,101 @@ int Expressao::validacaoDeExpressao(char expressaoChar[1000]){
 
     if(expressaoChar[i] == '('){
 
-        infixaOuPosfixa = 2;
-        expressaoInfixaOuPosfixa = 2;
+        if(_infixaOuPosfixa == 2){
+            
+            int qtdNum = 0;
+            int qtdOperadores = 0;
+            int qtdAbreP = 0;
+            int qtdFechaP = 0;
+            bool seqOperadores = false;
+            bool seqNumeros = false;
+            
+            for(i = 0; i < tamanho; i++){
+
+                if(expressaoChar[i] != ' '){
+
+                    if(eOperador(expressaoChar[i])){
+
+                        if(seqOperadores == true){
+                            return 0;
+                        }
+                        qtdOperadores++;
+                        seqNumeros = false;
+                        seqOperadores = true;
+                    } else 
+
+                    if(expressaoChar[i] == ','){
+                        if(seqNumeros == true){
+                            return 0;
+                        }
+                        qtdNum++;
+                        seqNumeros = true;
+                        seqOperadores = false;
+                    } else 
+
+                    if(expressaoChar[i] == '('){
+                        qtdAbreP++;
+                        seqNumeros = false;
+                        seqOperadores = false;
+                    } else 
+
+                    if(expressaoChar[i] == ')'){
+                        qtdFechaP++;
+                        seqNumeros = false;
+                        seqOperadores = false;
+                    } else
+                    
+                    if(eNumero(expressaoChar[i])){
+                        seqOperadores = false;
+                        seqNumeros = false;
+                    } else {
+                        
+                        return 0;
+                    }             
+                }
+            }
+
+            if(qtdNum == qtdOperadores + 1 && qtdAbreP == qtdFechaP){
+                return 2;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
 
     } else if(eNumero(expressaoChar[i])){
-        infixaOuPosfixa = 1;
-        expressaoInfixaOuPosfixa = 1;
+
+        if(_infixaOuPosfixa == 1){
+
+            int qtdNum = 0;
+            int qtdOperadores = 0;
+            
+            for(i = 0; i < tamanho; i++){
+
+                if(eOperador(expressaoChar[i])){
+                    qtdOperadores++;
+                }
+
+                if(expressaoChar[i] == ','){
+                    qtdNum++;
+                }
+
+            }
+
+            if(qtdNum == qtdOperadores + 1){
+                return 1;
+            } else {
+                return 0;
+            }
+    
+        } else {
+            return 0;
+        }
 
     } else {
-        infixaOuPosfixa = 0;
-    }
-    
+        return 0;
+    }    
 }
 
 bool Expressao::eNumero(char c) {
@@ -54,6 +138,16 @@ bool Expressao::eNumero(char c) {
     } else {
         return false;
     }
+}
+
+bool Expressao::eOperador(char c) {
+
+    if(c == '+' || c == '-' || c == '*' || c == '/'){
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 int Expressao::armazenaExpressao(char expressaoChar[1000]){
@@ -123,17 +217,34 @@ int Expressao::armazenaExpressao(char expressaoChar[1000]){
 
 }
 
-int Expressao::converteExpressao(){
-    
-    if(infixaOuPosfixa == 1){
-        cout << "INFIXA:";
-        convertePraInFixa();
-        infixaOuPosfixa = 2;
+int Expressao::converteExpressao(int _infixaOuPosfixa){
+
+    if(_infixaOuPosfixa != infixaOuPosfixa){
+
+        if(infixaOuPosfixa == 1){
+            cout << "INFIXA:";
+            inFixa = new Arvore();
+            convertePraInFixa();
+            inFixa->leInFixa(inFixa->raiz);
+            cout << endl;
+            infixaOuPosfixa = 2;
+        } else {
+            posFixa = new Fila();
+            convertePraPosFixa(inFixa->raiz);
+            cout << "POSFIXA: ";
+            posFixa->leFila();
+            infixaOuPosfixa = 1;
+        }
+
     } else {
-        convertePraPosFixa(inFixa->raiz);
-        cout << "POSFIXA: ";
-        posFixa->leFila();
-        infixaOuPosfixa = 1;
+        if(infixaOuPosfixa == 2){
+            cout << "INFIXA:";
+            inFixa->leInFixa(inFixa->raiz);
+            cout << endl;
+        } else {
+            cout << "POSFIXA: ";
+            posFixa->leFila();
+        }
     }
 
 }
@@ -251,8 +362,6 @@ int Expressao::convertePraInFixa(){
 
     Lista* conversao = pilha->getTopo()->getL();
 
-    conversao->imprime();
-
     CelulaLista* celulaLista;
 
     celulaLista = conversao->getPrimeiro()->getProx();
@@ -344,5 +453,11 @@ CelulaLista* Expressao::converteNum(CelulaLista* celula){
         return aux;
 
     }
+
+}
+
+int Expressao::getTamanhoExpressao(){
+
+    return tamanhoExpressao;
 
 }

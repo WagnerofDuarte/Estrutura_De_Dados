@@ -171,13 +171,19 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 void Arvore::leInFixa(NoArvore* no){
 
     if(no != NULL){
+        cout << "(";
+        cout << " ";
         leInFixa(no->esq);
         if(eNumero(no->getCaractere())){
-            cout << no->getNum() << endl;
+            cout << no->getNum();
         } else {
-            cout << no->getCaractere() << endl;
+            cout << " ";
+            cout << no->getCaractere();
+            cout << " ";
         }
         leInFixa(no->dir);
+        cout << " ";
+        cout << ")";
     }
 
 }
