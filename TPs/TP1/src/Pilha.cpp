@@ -1,6 +1,6 @@
 #include <Pilha.h>
 
-Pilha::Pilha(/* args */) {
+Pilha::Pilha() {
 
     topo = NULL;
 
@@ -22,41 +22,55 @@ bool Pilha::vazia(){
 
 }
 
+CelulaPilha* Pilha::getTopo(){
+
+    return topo;
+
+}
+
 int Pilha::getTamanho(){
     return tamanho;
 }
 
-void Pilha::empilha(char caractere){
+void Pilha::empilha(char caractere, double numero){
 
     CelulaPilha *celula;
-    celula = new CelulaPilha(caractere, topo);
+    celula = new CelulaPilha(caractere, numero, topo);
     topo = celula;
-
-    cout << "Empilhou: " << topo->getCaractere() << endl;
 
     tamanho++;
 
 }
 
-char Pilha::desempilha(){
+void Pilha::empilhaLista(Lista* aux){
 
-    char caractere;
+    CelulaPilha *celula;
+    celula = new CelulaPilha('L', 0, topo);
+    topo = celula;
+
+    celula->setL(aux);
+
+    tamanho++;
+
+}
+
+double Pilha::desempilha(){
+
+    double numero;
     CelulaPilha *celula;
 
     if(tamanho == 0){
         return 0;
     }
 
-    caractere = topo->getCaractere();
+    numero = topo->getNumero();
     celula = topo;
-    topo = topo = topo->getProx();
-
-    cout << "Desempilhou: " << caractere << endl;
-
+    topo = topo->getProx();
+    
     delete celula;
     tamanho--;
 
-    return caractere;
+    return numero;
 
 }
 void Pilha::limpa(){

@@ -1,12 +1,14 @@
 #include <Expressao.h>
 
-Expressao::Expressao(string nomeDoArquivo){
+Expressao::Expressao(char expressaoChar[1000], int k){
 
-    infixaOuPosfixa = 1;//validacaoDeExpressao(nomeDoArquivo);
+    tamanhoExpressao = k;
+
+    validacaoDeExpressao(expressaoChar);
 
     if(infixaOuPosfixa == 0){
 
-        return;
+        cout << "ERRO: EXP NAO VALIDA" << endl;
 
     } else {
 
@@ -14,7 +16,7 @@ Expressao::Expressao(string nomeDoArquivo){
         posFixa = new Fila();
         inFixa = new Arvore();
 
-        armazenaExpressao(nomeDoArquivo);
+        armazenaExpressao(expressaoChar);
 
     }
 }
@@ -23,7 +25,27 @@ Expressao::~Expressao() {
 
 }
 
-int Expressao::validacaoDeExpressao(string nomeDoArquivo){
+int Expressao::validacaoDeExpressao(char expressaoChar[1000]){
+
+    int i = 0;
+
+    while(expressaoChar[i] == ' '){
+        i++;
+    }
+
+    if(expressaoChar[i] == '('){
+
+        infixaOuPosfixa = 2;
+        expressaoInfixaOuPosfixa = 2;
+
+    } else if(eNumero(expressaoChar[i])){
+
+        infixaOuPosfixa = 1;
+        expressaoInfixaOuPosfixa = 1;
+
+    } else {
+        infixaOuPosfixa = 0;
+    }
     
 }
 
@@ -35,22 +57,30 @@ bool Expressao::eNumero(char c) {
     }
 }
 
-int Expressao::armazenaExpressao(string nomeDoArquivo){
+int Expressao::armazenaExpressao(char expressaoChar[1000]){
 
     /* Armazena a expressao em uma lista encadeada */
-    for(int i = 0; i < nomeDoArquivo.size(); i++){
 
-        char c = nomeDoArquivo[i];
-        expressao->insereFinal(c);
+    if(expressao->getTamanho() == 0){
 
+        cout << "EXPRESSAO OK: ";
+
+        for(int i = 0; i < tamanhoExpressao; i++){
+
+            char c = expressaoChar[i];
+            expressao->insereFinal(c, 0);
+
+            cout << c;
+
+        }
+
+        cout << endl;
     }
-
-    expressao->imprime();
 
     CelulaLista* aux = new CelulaLista();
     aux = expressao->getPrimeiro();
 
-    if(infixaOuPosfixa == 1) { // posfixa
+    if(expressaoInfixaOuPosfixa == 1) { // posfixa
 
         while(aux != NULL){
 
@@ -70,6 +100,8 @@ int Expressao::armazenaExpressao(string nomeDoArquivo){
 
             }
         }
+        posFixa->desenfileira();
+        
 
     } else { // infixa
 
@@ -87,20 +119,177 @@ int Expressao::armazenaExpressao(string nomeDoArquivo){
 
             }
         }
+
     }
 
 }
 
-int Expressao::convertePraPosFixa(){
+int Expressao::converteExpressao(){
     
+    if(infixaOuPosfixa == 1){
+        cout << "INFIXA:";
+        convertePraInFixa();
+        infixaOuPosfixa = 2;
+    } else {
+        convertePraPosFixa(inFixa->raiz);
+        cout << "POSFIXA: ";
+        posFixa->leFila();
+        infixaOuPosfixa = 1;
+    }
+
+}
+
+
+int Expressao::convertePraPosFixa(NoArvore* no){
+
+    if(no != NULL){
+
+        convertePraPosFixa(no->esq);
+        convertePraPosFixa(no->dir);
+        posFixa->enfileira(no->getCaractere(), no->getNum());
+
+    }
 
 }
 
 int Expressao::convertePraInFixa(){
+
+    Pilha* pilha = new Pilha();
+    Lista* aux = new Lista();
+
+    while(posFixa->getTamanho() > 0){
+
+        char caractere = posFixa->desenfileira();
+
+        if(eNumero(caractere)){
+
+            double num = posFixa->getFrenteNumero();
+            pilha->empilha(num, num);
+
+        } else {
+
+            CelulaPilha* celula1;
+            CelulaPilha* celula2;
+
+            char operador = posFixa->getFrente();
+            //double p2 = pilha->desempilha();
+            //double p1 = pilha->desempilha();
+
+            celula1 = pilha->getTopo();
+
+            if(celula1->getL() == NULL){ //celula 1 representa um numero
+
+                double p2 = pilha->desempilha();
+                celula2 = pilha->getTopo();
+
+                if(celula2->getL() == NULL){ //celula 2 representa um numero
+
+                    Lista* aux = new Lista();
+                    double p1 = pilha->desempilha();
+
+                    aux->insereFinal('(', 0);
+                    aux->insereFinal('(', 0);
+                    aux->insereFinal('0', p1);
+                    aux->insereFinal(')', 0);
+                    aux->insereFinal(operador, '0');
+                    aux->insereFinal('(', 0);
+                    aux->insereFinal('0', p2);
+                    aux->insereFinal(')', 0);
+                    aux->insereFinal(')', 0);
+
+                    pilha->empilhaLista(aux);
+
+                } else { //celula 2 representa uma lista
+
+                    Lista* aux = new Lista();
+                    aux = celula2->getL();
+
+                    aux->insereInicio('(', 0);
+                    aux->insereFinal(operador, '0');
+                    aux->insereFinal('(', 0);
+                    aux->insereFinal('0', p2);
+                    aux->insereFinal(')', 0);
+                    aux->insereFinal(')', 0);
+
+                }
+
+            } else { // celula 1 representa uma lista
+
+                Lista* aux = new Lista();
+                aux = celula1->getL();
+
+                pilha->desempilha();
+
+                celula2 = pilha->getTopo();
+
+                if(celula2->getL() == NULL){ //celula 2 representa um numero
+
+                    double p1 = pilha->desempilha();
+
+                    aux->insereInicio(operador, 0);
+                    aux->insereInicio(')', 0);
+                    aux->insereInicio('0', p1);
+                    aux->insereInicio('(', 0);
+                    aux->insereInicio('(', 0);
+                    aux->insereFinal(')', 0);
+
+                    pilha->empilhaLista(aux);
+
+                } else { //celula 2 representa uma lista
+
+                    Lista* aux2 = new Lista();
+                    aux2 = celula2->getL();
+
+                    aux2->insereInicio('(', 0);
+                    aux2->insereFinal(operador, 0);
+                    aux->insereFinal(')', 0);
+
+                    aux2->concatena(aux);            
+                }
+            }
+        }
+    }
+
+    Lista* conversao = pilha->getTopo()->getL();
+
+    conversao->imprime();
+
+    CelulaLista* celulaLista;
+
+    celulaLista = conversao->getPrimeiro()->getProx();
     
+    while(celulaLista != NULL){
+
+        inFixa->InsereExpressaoPosFixa(inFixa->raiz, celulaLista->getCaractere(), celulaLista->getNum());
+        celulaLista = celulaLista->getProx();
+
+    }
+
+}
+
+int Expressao::resolveExpressao(){
+
+    if(infixaOuPosfixa == 1){
+        resolvePosFixa();
+        if(expressaoInfixaOuPosfixa == 1){
+            armazenaExpressao(" ");
+        } else {
+            convertePraPosFixa(inFixa->raiz);
+        }
+        
+    } else {
+        resolveInFixa();
+    }
+
 }
 
 int Expressao::resolvePosFixa(){
+
+    resultadoExpressao = posFixa->gerarResultado();
+
+    cout << "POSFIXA: " << resultadoExpressao << endl;
+
+    //recuperaExpressaoPosFixa();
     
 }
 
@@ -108,7 +297,7 @@ int Expressao::resolveInFixa(){
 
     resultadoExpressao = inFixa->gerarResultado(inFixa->raiz);
 
-    cout << "Resultado: " << resultadoExpressao << endl;
+    cout << "INFIXA: " << resultadoExpressao << endl;
     
 }
 

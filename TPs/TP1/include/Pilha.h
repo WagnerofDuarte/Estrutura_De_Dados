@@ -21,9 +21,12 @@ class Pilha {
         bool vazia();
 
         int getTamanho();
+        CelulaPilha* getTopo();
 
-        void empilha(char caractere);
-        char desempilha();
+        void empilha(char caractere, double numero);
+        void empilhaLista(Lista* aux);
+
+        double desempilha();
         void limpa();
 
     };

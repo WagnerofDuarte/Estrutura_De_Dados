@@ -28,15 +28,47 @@ CelulaLista* Lista::getUltimo(){
     return ultimo;
 }
 
-void Lista::insereFinal(char caractere){
+void Lista::setUltimo(CelulaLista* celula){
+    ultimo = celula;
+}
+
+void Lista::insereFinal(char caractere, double num){
 
     CelulaLista *nova;
 
     nova = new CelulaLista();
     nova->setCaractere(caractere);
+    nova->setNum(num);
     ultimo->setProx(nova);
     ultimo = nova;
     tamanho++;
+
+}
+
+void Lista::insereInicio(char caractere, double num){
+
+    CelulaLista *nova;
+
+    nova = new CelulaLista();
+    nova->setCaractere(caractere);
+    nova->setNum(num);
+
+    nova->setProx(primeiro->getProx());
+    primeiro->setProx(nova);
+
+    if(nova->getProx() == NULL){
+        ultimo = nova;
+    }
+
+    tamanho++;
+}
+
+void Lista::concatena(Lista* _lista){
+
+    ultimo->setProx(_lista->primeiro->getProx());
+    ultimo = _lista->getUltimo();
+
+    tamanho = tamanho + _lista->getTamanho();
 
 }
 
@@ -48,10 +80,16 @@ void Lista::imprime(){
 
     while(celula != NULL){
 
-        cout << celula->getCaractere() << endl;
+        if(celula->getCaractere() == '0'){
+            cout << celula->getNum();
+        } else {
+            cout << celula->getCaractere();
+        }
         celula = celula->getProx();
 
     }
+
+    cout << endl;
 
 }
 

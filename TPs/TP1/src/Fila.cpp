@@ -31,6 +31,18 @@ bool Fila::vazia(){
 
 }
 
+char Fila::getFrente(){
+
+    return frente->getCaractere();
+
+}
+
+double Fila::getFrenteNumero(){
+
+    return frente->getNum();
+
+}
+
 void Fila::enfileira(char _caractere, double _num){
 
     CelulaFila *novaCelula;
@@ -39,8 +51,6 @@ void Fila::enfileira(char _caractere, double _num){
     tras->setProx(novaCelula);
     tras = novaCelula;
     tamanho++;
-
-    cout << "Enfileirou: " << novaCelula->getCaractere() << endl;
 
 }
 
@@ -60,9 +70,88 @@ char Fila::desenfileira(){
     delete celula;
     tamanho --;
 
-    cout << "Desenfileirou: " << caractere << endl;
-
     return caractere;
+
+}
+
+double Fila::desenfileraDouble(){
+
+    CelulaFila *celula;
+    double num;
+
+    if(tamanho == 0){
+        return 0;
+    }
+
+    num = frente->getProx()->getNum();
+    celula = frente;
+    frente = frente->getProx();
+
+    delete celula;
+    tamanho --;
+
+    return num;
+
+}
+
+bool Fila::eNumero(char c) {
+    if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+double Fila::gerarResultado(){
+
+    Pilha* pilha = new Pilha();
+    double resultado;
+
+    int i = 0;
+
+    while(tamanho > 0 || pilha->getTamanho() > 2){
+
+        if(eNumero(frente->getCaractere()) /* desenfileira retornar um num */){
+            /* empilhar o numero na pilha */
+            pilha->empilha(frente->getCaractere(), frente->getNum());
+            i++;
+        } else {
+            /* Pq achou um operador */
+            double p1, p2;
+            p2 = pilha->desempilha();
+            p1 = pilha->desempilha();
+            resultado = calculadora(frente->getCaractere(), p1, p2);
+            pilha->empilha(resultado, resultado);
+            i--;
+            /* Faca a conta em questao desempilhando os dois primeiros numeros*/
+        }
+
+        desenfileira();
+    }
+
+    pilha->desempilha();
+    pilha->desempilha();
+
+    return resultado;
+
+}
+
+void Fila::leFila(){
+
+    CelulaFila* celula = frente->getProx();
+
+    while(celula != NULL){
+
+        if(celula->getCaractere() == '0'){
+            cout << celula->getNum() << " ";
+        } else {
+            cout << celula->getCaractere() << " ";
+        }
+        
+        celula = celula->getProx();
+    }
+
+    cout << endl;
 
 }
 
@@ -85,4 +174,18 @@ void Fila::limpa(){
     tamanho = 0;
     tras = frente;
     }
+}
+
+double Fila::calculadora(char operador, double p1, double p2){
+
+    if(operador == '+'){
+        return p1 + p2;
+    } else if(operador == '-'){
+        return p1 - p2;
+    } else if(operador == '*'){
+        return p1 * p2;
+    } else if(operador == '/'){
+        return p1 / p2;
+    }
+
 }

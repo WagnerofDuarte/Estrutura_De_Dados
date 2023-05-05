@@ -15,23 +15,28 @@ class Expressao {
     private:
         /* ATRIBUTOS */
         int infixaOuPosfixa;
-        double resultadoExpressao;
+        int expressaoInfixaOuPosfixa; // 1 se for posfixa e 2 se for infixa
+        int tamanhoExpressao;
+        double resultadoExpressao; 
         Lista *expressao;
         Fila *posFixa;
         Arvore *inFixa;
 
     public:
         /* CONSTRUTOR E DESTRUTOR */
-        Expressao(string nomeDoArquivo); //CONSTRUTOR
+        Expressao(char expressaoChar[1000], int k); //CONSTRUTOR
         ~Expressao(); //DESTRUTOR
 
         /* MÉTODOS */
-        int validacaoDeExpressao(string nomeDoArquivo); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
-        int armazenaExpressao(string nomeDoArquivo);
+        int validacaoDeExpressao(char expressaoChar[1000]); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
+        int armazenaExpressao(char expressaoChar[1000]);
 
-        int convertePraPosFixa();
+        int recuperaExpressaoPosFixa();
+        int converteExpressao();
+        int convertePraPosFixa(NoArvore* no);
         int convertePraInFixa();
 
+        int resolveExpressao();
         int resolvePosFixa(); // Usando TAD pilhas
         int resolveInFixa(); // Usando TAD Arvore
 

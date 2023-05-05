@@ -45,14 +45,11 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
         if(caractere == '('){
             no = new NoArvore(caractere);
-            //cout << "Elemento Guardado: " << no->getCaractere() << endl;
         }
 
     } else {
 
         if(caractere == '('){
-
-            //cout << "Entrou no (" << endl;
             
             if(eOperador(no->getCaractere())){
 
@@ -82,20 +79,12 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
         } else if(eNumero(caractere)) {
 
-            //cout << "Entrou no NUM" << endl;
-
             if(no->esq == NULL && no->dir == NULL){ // É uma folha?
-
-                 //cout << "Achou uma folha " << endl;
 
                 if(no->getCaractere() == '('){
 
-                    //cout << "Achou uma folha disponivel" << endl;
-
-                    no->setCaractere(caractere);
+                    no->setCaractere('0');
                     no->setNum(num);
-
-                    //cout << "Dentro da arvore: " << num << endl;
 
                     acabou = true;
 
@@ -103,17 +92,13 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
                 } else {
                     //Volta pro Pai
-                    //cout << "Achou uma folha INdisponivel" << endl;
                     return false;
                 }
 
             } else { // Se não for folha, percorra a arvore
 
-                //cout << "Nao achou uma folha" << endl;
-
                 if(InsereExpressaoPosFixa(no->esq, caractere, num)){
-
-                    //cout << "Insecao feita" << endl;
+                    
                     return true;
 
                 } else {
@@ -128,31 +113,19 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
         } else if(eOperador(caractere)){
 
-            //cout << "Entrou no Operador" << endl;
-
             if(no->dir == NULL){
-
-                //cout << "NAO tem filho na direita" << endl;
 
                 if(no->esq != NULL){
 
-                    //cout << "Mas TEM filho na esquerda" << endl;
-
                     if(eNumero(no->esq->getCaractere())){
 
-                        //cout << "O filho na esquerda é um numero!" << endl;
-
                         if(no->getCaractere() == '('){
-
-                            //cout << "Como aqui tem um (, vou atualizar o no atual" << endl;
 
                             no->setCaractere(caractere);
 
                             return true;
 
                         } else {
-
-                            //cout << "N tem '(', vou ir pra esq" << endl;
 
                             if(InsereExpressaoPosFixa(no->esq, caractere, 0)){
                                 return true;
@@ -165,30 +138,24 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
                     if(eOperador(no->esq->getCaractere()) || no->esq->getCaractere() == '('){
 
-                        //cout << "O filho na esquerda N é um numero!" << endl;
-                        //cout << "Logo, vou ir mais pra esquerda" << endl;
-
                         if(!InsereExpressaoPosFixa(no->esq, caractere, 0)){
 
-                            //cout << "Vou inserir aqui, pois voltei e n coloquei nada" << endl;
                             no->setCaractere(caractere);
                             return true;
 
                         } else {
-                            //cout << "Nao vou inserir aqui, pois ja inseri mais embaixo" << endl;
+                
                             return true;
                         }
                     }
 
                 } else {
 
-                    //cout << "É uma folha" << endl;
+                    
                     return false;
 
                 }
             } else {
-
-                //cout << "Tem filho na direita, ent vou p la" << endl;
 
                 if(InsereExpressaoPosFixa(no->dir, caractere, 0)){
                     return true;
@@ -205,7 +172,11 @@ void Arvore::leInFixa(NoArvore* no){
 
     if(no != NULL){
         leInFixa(no->esq);
-        cout << no->getCaractere() << endl;
+        if(eNumero(no->getCaractere())){
+            cout << no->getNum() << endl;
+        } else {
+            cout << no->getCaractere() << endl;
+        }
         leInFixa(no->dir);
     }
 
