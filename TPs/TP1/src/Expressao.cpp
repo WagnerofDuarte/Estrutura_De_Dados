@@ -39,7 +39,6 @@ int Expressao::validacaoDeExpressao(char expressaoChar[1000]){
         expressaoInfixaOuPosfixa = 2;
 
     } else if(eNumero(expressaoChar[i])){
-
         infixaOuPosfixa = 1;
         expressaoInfixaOuPosfixa = 1;
 
