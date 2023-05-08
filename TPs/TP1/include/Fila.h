@@ -24,13 +24,16 @@ class Fila {
         double getFrenteNumero();
 
         void enfileira(char _caractere, double _num);
-        char desenfileiraChar();
+        char desenfileira();
         double desenfileraDouble();
         void limpa();
 
         double gerarResultado();
+        bool eNumero(char c);
 
         void leFila();
+
+        double calculadora(char operador, double p1, double p2);
 };
 
 #endif

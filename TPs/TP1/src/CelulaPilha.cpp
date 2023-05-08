@@ -42,3 +42,8 @@ void CelulaPilha::setL(Lista* aux){
 
     L = aux;
 }
+
+void CelulaPilha::concatenaL(){
+
+
+}

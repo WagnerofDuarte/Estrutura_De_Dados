@@ -77,6 +77,14 @@ int Expressao::validacaoDeExpressao(char expressaoChar[1000], int tamanho, int _
                         qtdFechaP++;
                         seqNumeros = false;
                         seqOperadores = false;
+                    } else
+                    
+                    if(eNumero(expressaoChar[i])){
+                        seqOperadores = false;
+                        seqNumeros = false;
+                    } else {
+                        
+                        return 0;
                     }             
                 }
             }
@@ -185,7 +193,7 @@ int Expressao::armazenaExpressao(char expressaoChar[1000]){
 
             }
         }
-        posFixa->desenfileiraChar();
+        posFixa->desenfileira();
         
 
     } else { // infixa
@@ -196,10 +204,10 @@ int Expressao::armazenaExpressao(char expressaoChar[1000]){
 
             if(eNumero(caractere)){
                 aux = converteNum(aux);
-                inFixa->InsereExpressaaoInFixa(inFixa->raiz, caractere, aux->getNum());
+                inFixa->InsereExpressaoPosFixa(inFixa->raiz, caractere, aux->getNum());
 
             } else {
-                inFixa->InsereExpressaaoInFixa(inFixa->raiz, caractere, 0);
+                inFixa->InsereExpressaoPosFixa(inFixa->raiz, caractere, 0);
                 aux = aux->getProx();
 
             }
@@ -261,7 +269,7 @@ int Expressao::convertePraInFixa(){
 
     while(posFixa->getTamanho() > 0){
 
-        char caractere = posFixa->desenfileiraChar();
+        char caractere = posFixa->desenfileira();
 
         if(eNumero(caractere)){
 
@@ -360,7 +368,7 @@ int Expressao::convertePraInFixa(){
     
     while(celulaLista != NULL){
 
-        inFixa->InsereExpressaaoInFixa(inFixa->raiz, celulaLista->getCaractere(), celulaLista->getNum());
+        inFixa->InsereExpressaoPosFixa(inFixa->raiz, celulaLista->getCaractere(), celulaLista->getNum());
         celulaLista = celulaLista->getProx();
 
     }

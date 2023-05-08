@@ -37,6 +37,7 @@ void NoArvore::setDir(NoArvore *_dir){
 }
 
 double NoArvore::getNum(){
+
     return num;
 
 }

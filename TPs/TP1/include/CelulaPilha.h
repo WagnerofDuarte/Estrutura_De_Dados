@@ -24,6 +24,7 @@ class CelulaPilha {
 
         Lista *getL();
         void setL(Lista* aux);
+        void concatenaL();
 
     };
 
