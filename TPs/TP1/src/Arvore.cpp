@@ -3,9 +3,42 @@
 
 using namespace std;
 
+/*double calculadora(char operador, double p1, double p2){
+
+    if(operador == '+'){
+        return p1 + p2;
+    } else if(operador == '-'){
+        return p1 - p2;
+    } else if(operador == '*'){
+        return p1 * p2;
+    } else if(operador == '/'){
+        return p1 / p2;
+    }
+
+}*/
+
+/*bool eNumero(char c) {
+    if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
+        return true;
+    } else {
+        return false;
+    }
+}*/
+
+/*bool eOperador(char c) {
+
+    if(c == '+' || c == '-' || c == '*' || c == '/'){
+        return true;
+    } else {
+        return false;
+    }
+
+}*/
+
 Arvore::Arvore() {
 
     raiz = NULL;
+    utilidades = new Utilidades();
 
 }
 
@@ -19,25 +52,7 @@ NoArvore* Arvore::getRaiz(){
     return raiz;
 }
 
-bool eNumero(char c) {
-    if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool eOperador(char c) {
-
-    if(c == '+' || c == '-' || c == '*' || c == '/'){
-        return true;
-    } else {
-        return false;
-    }
-
-}
-
-bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
+bool Arvore::InsereExpressaaoInFixa(NoArvore* &no, char caractere, double num){
 
     bool acabou = false;
 
@@ -51,22 +66,22 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
         if(caractere == '('){
             
-            if(eOperador(no->getCaractere())){
+            if(utilidades->eOperador(no->getCaractere())){
 
-                InsereExpressaoPosFixa(no->dir, caractere, 0);
+                InsereExpressaaoInFixa(no->dir, caractere, 0);
                 
 
             } else {
 
                 if(no->esq == NULL){
 
-                    InsereExpressaoPosFixa(no->esq, caractere, 0);
+                    InsereExpressaaoInFixa(no->esq, caractere, 0);
 
                 } else {
 
-                    if(no->esq->getCaractere() == '(' || eOperador(no->esq->getCaractere())){
+                    if(no->esq->getCaractere() == '(' || utilidades->eOperador(no->esq->getCaractere())){
 
-                        InsereExpressaoPosFixa(no->esq, caractere, 0);
+                        InsereExpressaaoInFixa(no->esq, caractere, 0);
                         
 
                     } else {
@@ -77,7 +92,7 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
             }
 
-        } else if(eNumero(caractere)) {
+        } else if(utilidades->eNumero(caractere)) {
 
             if(no->esq == NULL && no->dir == NULL){ // É uma folha?
 
@@ -97,13 +112,13 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
             } else { // Se não for folha, percorra a arvore
 
-                if(InsereExpressaoPosFixa(no->esq, caractere, num)){
+                if(InsereExpressaaoInFixa(no->esq, caractere, num)){
                     
                     return true;
 
                 } else {
 
-                    InsereExpressaoPosFixa(no->dir, caractere, num);
+                    InsereExpressaaoInFixa(no->dir, caractere, num);
                     return false;
 
 
@@ -111,13 +126,13 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
             }
 
-        } else if(eOperador(caractere)){
+        } else if(utilidades->eOperador(caractere)){
 
             if(no->dir == NULL){
 
                 if(no->esq != NULL){
 
-                    if(eNumero(no->esq->getCaractere())){
+                    if(utilidades->eNumero(no->esq->getCaractere())){
 
                         if(no->getCaractere() == '('){
 
@@ -127,7 +142,7 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
                         } else {
 
-                            if(InsereExpressaoPosFixa(no->esq, caractere, 0)){
+                            if(InsereExpressaaoInFixa(no->esq, caractere, 0)){
                                 return true;
                             } else {
                                 return false;
@@ -136,9 +151,9 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
                         }
                     }
 
-                    if(eOperador(no->esq->getCaractere()) || no->esq->getCaractere() == '('){
+                    if(utilidades->eOperador(no->esq->getCaractere()) || no->esq->getCaractere() == '('){
 
-                        if(!InsereExpressaoPosFixa(no->esq, caractere, 0)){
+                        if(!InsereExpressaaoInFixa(no->esq, caractere, 0)){
 
                             no->setCaractere(caractere);
                             return true;
@@ -157,7 +172,7 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
                 }
             } else {
 
-                if(InsereExpressaoPosFixa(no->dir, caractere, 0)){
+                if(InsereExpressaaoInFixa(no->dir, caractere, 0)){
                     return true;
                 } else {
                     return false;
@@ -174,7 +189,7 @@ void Arvore::leInFixa(NoArvore* no){
         cout << "(";
         cout << " ";
         leInFixa(no->esq);
-        if(eNumero(no->getCaractere())){
+        if(utilidades->eNumero(no->getCaractere())){
             cout << no->getNum();
         } else {
             cout << " ";
@@ -195,44 +210,30 @@ void Arvore::limpa(){
 
 double Arvore::gerarResultado(NoArvore* &no){
 
-    if(eNumero(no->esq->getCaractere())){
+    if(utilidades->eNumero(no->esq->getCaractere())){
 
-        if(eNumero(no->dir->getCaractere())){
+        if(utilidades->eNumero(no->dir->getCaractere())){
 
-            return calculadora(no->getCaractere(), (no->esq->getNum()), (no->dir->getNum()));
+            return utilidades->calculadora(no->getCaractere(), (no->esq->getNum()), (no->dir->getNum()));
 
         } else {
 
-            return calculadora(no->getCaractere(), (no->esq->getNum()), gerarResultado(no->dir));
+            return utilidades->calculadora(no->getCaractere(), (no->esq->getNum()), gerarResultado(no->dir));
 
         }
 
     } else {
 
-        if(eNumero(no->dir->getCaractere())){
+        if(utilidades->eNumero(no->dir->getCaractere())){
 
-            return calculadora(no->getCaractere(), gerarResultado(no->esq), (no->dir->getNum()));
+            return utilidades->calculadora(no->getCaractere(), gerarResultado(no->esq), (no->dir->getNum()));
 
         } else {
 
-            return calculadora(no->getCaractere(), gerarResultado(no->esq), gerarResultado(no->dir));
+            return utilidades->calculadora(no->getCaractere(), gerarResultado(no->esq), gerarResultado(no->dir));
 
         }
 
-    }
-
-}
-
-double Arvore::calculadora(char operador, double p1, double p2){
-
-    if(operador == '+'){
-        return p1 + p2;
-    } else if(operador == '-'){
-        return p1 - p2;
-    } else if(operador == '*'){
-        return p1 * p2;
-    } else if(operador == '/'){
-        return p1 / p2;
     }
 
 }

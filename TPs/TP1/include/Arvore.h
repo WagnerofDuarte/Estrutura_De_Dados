@@ -2,6 +2,7 @@
 #define ARVORE
 
 #include <NoArvore.h>
+#include <Utilidades.h>
 #include <Fila.h>
 
 class Arvore {
@@ -10,6 +11,7 @@ class Arvore {
         /* ATRIBUTOS */
         double resultado;
     public:
+        Utilidades *utilidades;
         /* CONSTRUTOR E DESTRUTOR */
         NoArvore *raiz;
 
@@ -17,13 +19,11 @@ class Arvore {
         ~Arvore();
 
         double gerarResultado(NoArvore* &no);
-        double calculadora(char operador, double p1, double p2);
-        //double getResultado();
 
         NoArvore* getRaiz();
 
         /* MÉTODOS */
-        bool InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num);
+        bool InsereExpressaaoInFixa(NoArvore* &no, char caractere, double num);
         void limpa();
 
         void leInFixa(NoArvore* no);

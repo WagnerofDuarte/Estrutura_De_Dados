@@ -3,6 +3,20 @@
 
 using namespace std;
 
+double calculadora(char operador, double p1, double p2){
+
+    if(operador == '+'){
+        return p1 + p2;
+    } else if(operador == '-'){
+        return p1 - p2;
+    } else if(operador == '*'){
+        return p1 * p2;
+    } else if(operador == '/'){
+        return p1 / p2;
+    }
+
+}
+
 Fila::Fila() {
 
     frente = new CelulaFila(0, 0, NULL);
@@ -54,7 +68,7 @@ void Fila::enfileira(char _caractere, double _num){
 
 }
 
-char Fila::desenfileira(){
+char Fila::desenfileiraChar(){
 
     CelulaFila *celula;
     char caractere;
@@ -94,7 +108,7 @@ double Fila::desenfileraDouble(){
 
 }
 
-bool Fila::eNumero(char c) {
+bool eNumeroy(char c) {
     if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9'){
         return true;
     } else {
@@ -111,7 +125,7 @@ double Fila::gerarResultado(){
 
     while(tamanho > 0 || pilha->getTamanho() > 2){
 
-        if(eNumero(frente->getCaractere()) /* desenfileira retornar um num */){
+        if(eNumeroy(frente->getCaractere()) /* desenfileiraChar retornar um num */){
             /* empilhar o numero na pilha */
             pilha->empilha(frente->getCaractere(), frente->getNum());
             i++;
@@ -126,7 +140,7 @@ double Fila::gerarResultado(){
             /* Faca a conta em questao desempilhando os dois primeiros numeros*/
         }
 
-        desenfileira();
+        desenfileiraChar();
     }
 
     pilha->desempilha();
@@ -174,18 +188,4 @@ void Fila::limpa(){
     tamanho = 0;
     tras = frente;
     }
-}
-
-double Fila::calculadora(char operador, double p1, double p2){
-
-    if(operador == '+'){
-        return p1 + p2;
-    } else if(operador == '-'){
-        return p1 - p2;
-    } else if(operador == '*'){
-        return p1 * p2;
-    } else if(operador == '/'){
-        return p1 / p2;
-    }
-
 }
