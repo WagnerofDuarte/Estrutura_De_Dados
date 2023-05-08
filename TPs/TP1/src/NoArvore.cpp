@@ -10,7 +10,7 @@ NoArvore::NoArvore(char _caractere){
 
 NoArvore::~NoArvore(){
 
-}
+} 
 
 char NoArvore::getCaractere(){
     return caractere;

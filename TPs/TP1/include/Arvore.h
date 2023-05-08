@@ -6,9 +6,6 @@
 
 class Arvore {
 
-    private:
-        /* ATRIBUTOS */
-        double resultado;
     public:
         /* CONSTRUTOR E DESTRUTOR */
         NoArvore *raiz;

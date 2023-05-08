@@ -14,9 +14,10 @@ CelulaFila::~CelulaFila() {
 }
 
 char CelulaFila::getCaractere(){
+    
     return caractere;
 
-}
+} 
 
 double CelulaFila::getNum(){
     return numero;

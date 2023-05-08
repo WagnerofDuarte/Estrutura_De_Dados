@@ -40,7 +40,7 @@ void Pilha::empilha(char caractere, double numero){
 
     tamanho++;
 
-}
+} 
 
 void Pilha::empilhaLista(Lista* aux){
 

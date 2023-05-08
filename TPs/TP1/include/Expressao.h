@@ -29,17 +29,17 @@ class Expressao {
 
         /* MÉTODOS */
         int validacaoDeExpressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa); // Retorna 1 se for POSFIXA ou 2 se for INFIXA ou 0 se for invalida
-        int armazenaExpressao(char expressaoChar[1000]);
+        void armazenaExpressao(char expressaoChar[1000]);
 
         void imprimirExpressao(char expressaoChar[1000], int tamanho);
 
-        int converteExpressao(int _infixaOuPosfixa);
-        int convertePraPosFixa(NoArvore* no);
-        int convertePraInFixa();
+        void converteExpressao(int _infixaOuPosfixa);
+        void convertePraPosFixa(NoArvore* no);
+        void convertePraInFixa();
 
-        int resolveExpressao();
-        int resolvePosFixa(); // Usando TAD pilhas
-        int resolveInFixa(); // Usando TAD Arvore
+        void resolveExpressao();
+        void resolvePosFixa(); // Usando TAD pilhas
+        void resolveInFixa(); // Usando TAD Arvore
 
         bool eNumero(char c);
         bool eOperador(char c);

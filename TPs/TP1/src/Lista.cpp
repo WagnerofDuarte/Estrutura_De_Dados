@@ -4,7 +4,7 @@
 using namespace std;
 
 Lista::Lista(){
-
+ 
     primeiro = new CelulaLista();
     ultimo = primeiro;
     tamanho = 0;

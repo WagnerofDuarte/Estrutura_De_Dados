@@ -4,18 +4,15 @@
 #include <Expressao.h>
 
 
-int main(){
+int main(int argc, char** argv){
 
-    /*
-        1) Abrir e Ler o arquivo -- S
-        2) Validar a expressao antes de armazena-la -- N
-        3) Caso a expressao seja valida, guarda-la como INfixa ou POSfixa -- S
-        4) Converter de um tipo pro outro -- S
-        5) Resolver a expreesao e armazenar seu resultado -- S
-    
-    */
+    fstream arquivo(argv[1]);
 
-    fstream arquivo("entradas.in");
+    if(!arquivo){
+        cout << "ERRO: ARQUIVO NAO ENCONTRADO" << endl;
+        return 0;
+    } 
+ 
     string linha;
 
     Expressao *expressaoPrincipal;

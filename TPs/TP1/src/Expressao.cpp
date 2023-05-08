@@ -11,7 +11,7 @@ Expressao::Expressao(char expressaoChar[1000], int tamanho, int _infixaOuPosfixa
     inFixa = new Arvore();
 
     armazenaExpressao(expressaoChar);
-}
+} 
 
 Expressao::~Expressao() {
 
@@ -150,11 +150,11 @@ bool Expressao::eOperador(char c) {
 
 }
 
-int Expressao::armazenaExpressao(char expressaoChar[1000]){
+void Expressao::armazenaExpressao(char expressaoChar[1000]){
 
     /* Armazena a expressao em uma lista encadeada */
 
-    if(expressao->getTamanho() == 0){
+    if(expressao->getTamanho() == 0){ 
 
         cout << "EXPRESSAO OK: ";
 
@@ -217,7 +217,7 @@ int Expressao::armazenaExpressao(char expressaoChar[1000]){
 
 }
 
-int Expressao::converteExpressao(int _infixaOuPosfixa){
+void Expressao::converteExpressao(int _infixaOuPosfixa){
 
     if(_infixaOuPosfixa != infixaOuPosfixa){
 
@@ -250,7 +250,7 @@ int Expressao::converteExpressao(int _infixaOuPosfixa){
 }
 
 
-int Expressao::convertePraPosFixa(NoArvore* no){
+void Expressao::convertePraPosFixa(NoArvore* no){
 
     if(no != NULL){
 
@@ -262,10 +262,10 @@ int Expressao::convertePraPosFixa(NoArvore* no){
 
 }
 
-int Expressao::convertePraInFixa(){
+void Expressao::convertePraInFixa(){
 
     Pilha* pilha = new Pilha();
-    Lista* aux = new Lista();
+    //Lista* aux = new Lista();
 
     while(posFixa->getTamanho() > 0){
 
@@ -278,7 +278,7 @@ int Expressao::convertePraInFixa(){
 
         } else {
 
-            CelulaPilha* celula1;
+            CelulaPilha* celula1; 
             CelulaPilha* celula2;
 
             char operador = posFixa->getFrente();
@@ -375,12 +375,13 @@ int Expressao::convertePraInFixa(){
 
 }
 
-int Expressao::resolveExpressao(){
+void Expressao::resolveExpressao(){
 
     if(infixaOuPosfixa == 1){
         resolvePosFixa();
         if(expressaoInfixaOuPosfixa == 1){
-            armazenaExpressao(" ");
+            char c[0];
+            armazenaExpressao(c);
         } else {
             convertePraPosFixa(inFixa->raiz);
         }
@@ -391,7 +392,7 @@ int Expressao::resolveExpressao(){
 
 }
 
-int Expressao::resolvePosFixa(){
+void Expressao::resolvePosFixa(){
 
     resultadoExpressao = posFixa->gerarResultado();
 
@@ -401,7 +402,7 @@ int Expressao::resolvePosFixa(){
     
 }
 
-int Expressao::resolveInFixa(){
+void Expressao::resolveInFixa(){
 
     resultadoExpressao = inFixa->gerarResultado(inFixa->raiz);
 

@@ -20,7 +20,7 @@ Fila::~Fila() {
 int Fila::getTamanho(){
     return tamanho;
 }
-
+ 
 bool Fila::vazia(){
 
     if(tamanho == 0){
@@ -107,22 +107,18 @@ double Fila::gerarResultado(){
     Pilha* pilha = new Pilha();
     double resultado;
 
-    int i = 0;
-
     while(tamanho > 0 || pilha->getTamanho() > 2){
 
         if(eNumero(frente->getCaractere()) /* desenfileira retornar um num */){
             /* empilhar o numero na pilha */
             pilha->empilha(frente->getCaractere(), frente->getNum());
-            i++;
         } else {
-            /* Pq achou um operador */
+            /* Pq achou um operador */ 
             double p1, p2;
             p2 = pilha->desempilha();
             p1 = pilha->desempilha();
             resultado = calculadora(frente->getCaractere(), p1, p2);
             pilha->empilha(resultado, resultado);
-            i--;
             /* Faca a conta em questao desempilhando os dois primeiros numeros*/
         }
 
@@ -181,11 +177,13 @@ double Fila::calculadora(char operador, double p1, double p2){
     if(operador == '+'){
         return p1 + p2;
     } else if(operador == '-'){
-        return p1 - p2;
+        return p1 - p2; 
     } else if(operador == '*'){
         return p1 * p2;
     } else if(operador == '/'){
         return p1 / p2;
+    } else {
+        return 0;
     }
 
 }

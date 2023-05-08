@@ -7,7 +7,7 @@ Arvore::Arvore() {
 
     raiz = NULL;
 
-}
+} 
 
 Arvore::~Arvore() {
 
@@ -38,8 +38,6 @@ bool eOperador(char c) {
 }
 
 bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
-
-    bool acabou = false;
 
     if(no == NULL){
 
@@ -85,8 +83,6 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
 
                     no->setCaractere('0');
                     no->setNum(num);
-
-                    acabou = true;
 
                     return true;
 
@@ -220,7 +216,7 @@ double Arvore::gerarResultado(NoArvore* &no){
         }
 
     }
-
+ 
 }
 
 double Arvore::calculadora(char operador, double p1, double p2){
@@ -228,11 +224,13 @@ double Arvore::calculadora(char operador, double p1, double p2){
     if(operador == '+'){
         return p1 + p2;
     } else if(operador == '-'){
-        return p1 - p2;
+        return p1 - p2; 
     } else if(operador == '*'){
         return p1 * p2;
     } else if(operador == '/'){
         return p1 / p2;
+    } else {
+        return 0;
     }
 
 }

@@ -17,6 +17,7 @@ char CelulaLista::getCaractere(){
 }
 
 double CelulaLista::getNum(){
+    
     return num;
 }
 
