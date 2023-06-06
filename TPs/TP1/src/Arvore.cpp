@@ -52,7 +52,6 @@ bool Arvore::InsereExpressaoPosFixa(NoArvore* &no, char caractere, double num){
             if(eOperador(no->getCaractere())){
 
                 InsereExpressaoPosFixa(no->dir, caractere, 0);
-                
 
             } else {
 
