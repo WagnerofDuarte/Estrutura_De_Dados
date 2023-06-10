@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iostream>
+#include <time.h>
 
 #include <Arquivos.h>
 #include <Lista.h>
@@ -10,11 +11,11 @@ int main(int argc, char** argv){
 
     /* LEITURA DO ARQUIVO */
 
-    Arquivos* ArquivoTeste = new Arquivos("ENTRADA10.txt");
+    Arquivos* arquivoTeste = new Arquivos(argv[2]);
     
-    string conteudoDoArquivo = ArquivoTeste->lerArquivo();
+    string conteudoDoArquivo = arquivoTeste->lerArquivo();
 
-    Lista* listaTeste = new Lista(true);
+    Lista* listaDePontos = new Lista(true);
 
     /* ARMAZENAMENTO DOS PONTOS NA LISTA */
 
@@ -26,7 +27,7 @@ int main(int argc, char** argv){
 
         if(conteudoDoArquivo[i] == '|'){
 
-            listaTeste->insereFinal(stoi(aux_x), stoi(aux_y), NULL, NULL);
+            listaDePontos->insereFinal(stoi(aux_x), stoi(aux_y), NULL, NULL);
             aux_x = "";
             aux_y = ""; 
             x_ou_y = 'x';
@@ -50,32 +51,64 @@ int main(int argc, char** argv){
 
     /* ALGORITIMOS DE FECHO - MARCHA DE JARVIS E SCAN DE GRAHAN*/
 
-    AlgoritimosFechoConvexo* testeDeFecho = new AlgoritimosFechoConvexo();
+    AlgoritimosFechoConvexo* encontrarFecho = new AlgoritimosFechoConvexo();
+    FechoConvexo* fechoFinal;
 
-    //Lista* testeResultado = testeDeFecho->marchaDeJarvis(listaTeste);
-    FechoConvexo* fechoFinal = testeDeFecho->scanDeGraham(listaTeste);
+    double tempoTotalJarvis;
+    double tempoGrahamInsertion;
+    double tempoGrahamMerge;
+    double tempoGrahamRadix;
 
-    /* ALGORITIMOS DE ORDENAÇÃO */ /* CALCULA ANGULO */
+    long antes;
+    long depois;
 
-    //AlgoritimosDeOrdenacao* testeDeOrdenacao = new AlgoritimosDeOrdenacao(listaTeste);
+    for(int i = 0; i < 4; i++){
 
-    /* INSERTION SORT */
+        Lista* listaDePontosAux = new Lista(true);
+        for(int i = 0; i < listaDePontos->getTam(); i++){
+            listaDePontosAux->insereFinal(listaDePontos->pontoNaPosicao(i)->getX(), listaDePontos->pontoNaPosicao(i)->getY(), NULL, NULL);
+        }
 
-    //testeDeOrdenacao->insertionSort(listaTeste);
+        switch (i) {
+        case 0:
+            antes = clock();
+            fechoFinal = encontrarFecho->marchaDeJarvis(listaDePontosAux);
+            depois = clock();
+            tempoTotalJarvis = (double)(depois - antes)/CLOCKS_PER_SEC;
+            break;
+        case 1:
+            antes = clock();
+            fechoFinal = encontrarFecho->scanDeGraham(listaDePontosAux, 1);
+            depois = clock();
+            tempoGrahamInsertion = (double)(depois - antes)/CLOCKS_PER_SEC;
+            break;
+        case 2:
+            antes = clock();
+            fechoFinal = encontrarFecho->scanDeGraham(listaDePontosAux, 2);
+            depois = clock();
+            tempoGrahamMerge = (double)(depois - antes)/CLOCKS_PER_SEC;
+            break;
+        case 3:
+            antes = clock();
+            fechoFinal = encontrarFecho->scanDeGraham(listaDePontosAux, 3);
+            depois = clock();
+            tempoGrahamRadix = (double)(depois - antes)/CLOCKS_PER_SEC;
+            break;
+        default:
+            break;
+        }
 
-    /* MERGE SORT */
-
-    //testeDeOrdenacao->mergeSort(listaTeste, 0, (listaTeste->getTam()));
-
-    /* RADIX SORT */
-
-    //testeDeOrdenacao->radixSort(listaTeste);
+    }
 
     /* PRINT DE RESULTADOS */
 
     cout << "FECHO CONVEXO" << endl;
     fechoFinal->imprimirFecho();
-    cout << endl;
+    cout << setprecision(3) << fixed;
+    cout << "GRAHAM+MERGESORT: " << tempoGrahamMerge << "s" << endl;
+    cout << "GRAHAM+INSERTIONSORT: " << tempoGrahamInsertion << "s" << endl;
+    cout << "GRAHAM+LINEAR: " << tempoGrahamRadix << "s" << endl;
+    cout << "JARVIS: " << tempoTotalJarvis << "s" << endl;
 
     return 0;
 

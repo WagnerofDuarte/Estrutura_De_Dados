@@ -14,7 +14,7 @@ class AlgoritimosFechoConvexo {
     public:
 
         FechoConvexo* marchaDeJarvis(Lista* listaDePontos);
-        FechoConvexo* scanDeGraham(Lista* listaDePontos);
+        FechoConvexo* scanDeGraham(Lista* listaDePontos, int ord);
 
 };
 

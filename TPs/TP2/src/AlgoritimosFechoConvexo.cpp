@@ -33,25 +33,26 @@ FechoConvexo* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
     FechoConvexo* fecho = new FechoConvexo();
 
     for(int i = 1; i < pontosDaEnvoltoria->getTam(); i++){
-
-        Reta* reta_aux = new Reta(pontosDaEnvoltoria->pontoNaPosicao(i-1), pontosDaEnvoltoria->pontoNaPosicao(i));
-
+        Reta* reta_aux = new Reta(pontosDaEnvoltoria->pontoNaPosicao(i), pontosDaEnvoltoria->pontoNaPosicao(i-1));
         fecho->adicionarReta(reta_aux);
-
     }
 
     return fecho;
 
 }
 
-FechoConvexo* AlgoritimosFechoConvexo::scanDeGraham(Lista* listaDePontos){
-
-    Ponto* menorPonto = listaDePontos->menorPontoY();
+FechoConvexo* AlgoritimosFechoConvexo::scanDeGraham(Lista* listaDePontos, int ord){
 
     AlgoritimosDeOrdenacao* algoritimosDeOrdenacao = new AlgoritimosDeOrdenacao(listaDePontos);
-    algoritimosDeOrdenacao->insertionSort(listaDePontos);
-
     Lista* pontosDaEnvoltoria = new Lista(true);
+
+    if(ord == 1){
+        algoritimosDeOrdenacao->insertionSort(listaDePontos);
+    } else if(ord == 2){
+        algoritimosDeOrdenacao->mergeSort(listaDePontos, 0, listaDePontos->getTam());
+    } else {
+        algoritimosDeOrdenacao->radixSort(listaDePontos);
+    }
 
     for(int i = 0; i < listaDePontos->getTam(); i++){
         while(pontosDaEnvoltoria->getTam() >= 2 && orientacao(pontosDaEnvoltoria->pontoNaPosicao(1), pontosDaEnvoltoria->pontoNaPosicao(0), listaDePontos->pontoNaPosicao(i)) != 1){

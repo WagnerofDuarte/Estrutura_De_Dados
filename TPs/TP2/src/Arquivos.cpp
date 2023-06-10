@@ -12,7 +12,8 @@ string Arquivos::lerArquivo(){
     fstream arquivoDeLeitura(nomeDoArquivo);
 
     if(!arquivoDeLeitura){
-        // ERRO!
+        cout << "ARQUIVO NAO ECONTRADO" << endl;
+        exit(1);
     }
 
     string linha;
