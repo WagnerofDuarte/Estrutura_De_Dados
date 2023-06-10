@@ -4,18 +4,17 @@
 #include <Arquivos.h>
 #include <Lista.h>
 #include <AlgoritimosFechoConvexo.h>
+#include <AlgoritimosOrdenacao.h>
 
 int main(int argc, char** argv){
 
     /* LEITURA DO ARQUIVO */
 
-    Arquivos* ArquivoTeste = new Arquivos("ENTRADA100.txt");
+    Arquivos* ArquivoTeste = new Arquivos("ENTRADA10.txt");
     
     string conteudoDoArquivo = ArquivoTeste->lerArquivo();
-    cout << conteudoDoArquivo << endl;
-    cout << endl;
 
-    Lista* listaTeste = new Lista();
+    Lista* listaTeste = new Lista(true);
 
     /* ARMAZENAMENTO DOS PONTOS NA LISTA */
 
@@ -27,9 +26,9 @@ int main(int argc, char** argv){
 
         if(conteudoDoArquivo[i] == '|'){
 
-            listaTeste->insereFinal(stoi(aux_x), stoi(aux_y));
+            listaTeste->insereFinal(stoi(aux_x), stoi(aux_y), NULL, NULL);
             aux_x = "";
-            aux_y = "";
+            aux_y = ""; 
             x_ou_y = 'x';
 
         } else if (conteudoDoArquivo[i] != ' '){
@@ -47,19 +46,36 @@ int main(int argc, char** argv){
                 x_ou_y = 'x';
             }
         }
-        
     }
 
-    listaTeste->imprime();
-
-    /* ALGORITIMOS DE FECHO */
+    /* ALGORITIMOS DE FECHO - MARCHA DE JARVIS E SCAN DE GRAHAN*/
 
     AlgoritimosFechoConvexo* testeDeFecho = new AlgoritimosFechoConvexo();
 
-    Lista* testeResultado = testeDeFecho->marchaDeJarvis(listaTeste);
+    //Lista* testeResultado = testeDeFecho->marchaDeJarvis(listaTeste);
+    FechoConvexo* fechoFinal = testeDeFecho->scanDeGraham(listaTeste);
+
+    /* ALGORITIMOS DE ORDENAÇÃO */ /* CALCULA ANGULO */
+
+    //AlgoritimosDeOrdenacao* testeDeOrdenacao = new AlgoritimosDeOrdenacao(listaTeste);
+
+    /* INSERTION SORT */
+
+    //testeDeOrdenacao->insertionSort(listaTeste);
+
+    /* MERGE SORT */
+
+    //testeDeOrdenacao->mergeSort(listaTeste, 0, (listaTeste->getTam()));
+
+    /* RADIX SORT */
+
+    //testeDeOrdenacao->radixSort(listaTeste);
+
+    /* PRINT DE RESULTADOS */
 
     cout << "FECHO CONVEXO" << endl;
-    testeResultado->imprime();
+    fechoFinal->imprimirFecho();
+    cout << endl;
 
     return 0;
 

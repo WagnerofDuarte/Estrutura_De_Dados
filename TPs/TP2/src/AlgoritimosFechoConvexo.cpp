@@ -2,21 +2,16 @@
 
 using namespace std;
 
-AlgoritimosFechoConvexo::AlgoritimosFechoConvexo(){
+FechoConvexo* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
 
-
-}
-
-Lista* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
-
-    Ponto* na_envoltoria = listaDePontos->menorPonto();
-    Lista* pontosDaEnvoltoria = new Lista();
+    Ponto* na_envoltoria = listaDePontos->menorPontoX();
+    Lista* pontosDaEnvoltoria = new Lista(true);
 
     bool lopou = false;
 
     while(!lopou){
 
-        pontosDaEnvoltoria->insereFinal(na_envoltoria->getX(), na_envoltoria->getY());
+        pontosDaEnvoltoria->insereFinal(na_envoltoria->getX(), na_envoltoria->getY(), NULL, NULL);
         Ponto* prox_ponto = listaDePontos->getPrimeiro()->getPonto();
 
         for(int i = 0; i < listaDePontos->getTam(); i++){
@@ -35,14 +30,45 @@ Lista* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
 
     }
 
-    return pontosDaEnvoltoria;
+    FechoConvexo* fecho = new FechoConvexo();
+
+    for(int i = 1; i < pontosDaEnvoltoria->getTam(); i++){
+
+        Reta* reta_aux = new Reta(pontosDaEnvoltoria->pontoNaPosicao(i-1), pontosDaEnvoltoria->pontoNaPosicao(i));
+
+        fecho->adicionarReta(reta_aux);
+
+    }
+
+    return fecho;
 
 }
 
-void AlgoritimosFechoConvexo::scanDeGraham(){
+FechoConvexo* AlgoritimosFechoConvexo::scanDeGraham(Lista* listaDePontos){
 
+    Ponto* menorPonto = listaDePontos->menorPontoY();
 
+    AlgoritimosDeOrdenacao* algoritimosDeOrdenacao = new AlgoritimosDeOrdenacao(listaDePontos);
+    algoritimosDeOrdenacao->insertionSort(listaDePontos);
 
+    Lista* pontosDaEnvoltoria = new Lista(true);
+
+    for(int i = 0; i < listaDePontos->getTam(); i++){
+        while(pontosDaEnvoltoria->getTam() >= 2 && orientacao(pontosDaEnvoltoria->pontoNaPosicao(1), pontosDaEnvoltoria->pontoNaPosicao(0), listaDePontos->pontoNaPosicao(i)) != 1){
+            pontosDaEnvoltoria->removeInicio();
+        }
+        pontosDaEnvoltoria->insereInicio(listaDePontos->pontoNaPosicao(i)->getX(), listaDePontos->pontoNaPosicao(i)->getY(), NULL, NULL);
+        pontosDaEnvoltoria->getPrimeiro()->getPonto()->setAngulo(listaDePontos->pontoNaPosicao(i)->getAngulo());
+    }
+    
+    FechoConvexo* fecho = new FechoConvexo();
+
+    for(int i = 1; i < pontosDaEnvoltoria->getTam(); i++){
+        Reta* reta_aux = new Reta(pontosDaEnvoltoria->pontoNaPosicao(i), pontosDaEnvoltoria->pontoNaPosicao(i-1));
+        fecho->adicionarReta(reta_aux);
+    }
+
+    return fecho;
 }
 
 int AlgoritimosFechoConvexo::orientacao(Ponto* p1, Ponto* p2, Ponto* p3){
