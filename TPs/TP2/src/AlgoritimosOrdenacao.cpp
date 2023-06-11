@@ -4,9 +4,7 @@
 using namespace std;
 
 AlgoritimosDeOrdenacao::AlgoritimosDeOrdenacao(Lista* lista){
-
     calculaAngulos(lista);
-
 }
 
 void AlgoritimosDeOrdenacao::insertionSort(Lista* lista){
@@ -50,14 +48,11 @@ void AlgoritimosDeOrdenacao::insertionSort(Lista* lista){
 void AlgoritimosDeOrdenacao::mergeSort(Lista* lista, int inicio, int fim){
 
     if(fim - inicio > 1){
-
         int meio = ((fim + inicio)/2);
         mergeSort(lista, inicio, meio);
         mergeSort(lista, (meio), fim);
         merge(lista, inicio, meio, fim);
-
     }
-
 }
 
 void AlgoritimosDeOrdenacao::merge(Lista* lista, int inicio, int meio, int fim){
@@ -107,7 +102,6 @@ void AlgoritimosDeOrdenacao::merge(Lista* lista, int inicio, int meio, int fim){
             lista->pontoNaPosicao(i)->setY(dir->pontoNaPosicao(topo_dir)->getY());
             lista->pontoNaPosicao(i)->setAngulo(dir->pontoNaPosicao(topo_dir)->getAngulo());
             topo_dir++;
-
         }
     }
 }

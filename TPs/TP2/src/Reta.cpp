@@ -1,10 +1,8 @@
 #include <Reta.h>
 
 Reta::Reta(Ponto* A, Ponto* B){
-
     pontoA = A;
     pontoB = B;
-    
 }
 
 Ponto* Reta::getPontoA(){

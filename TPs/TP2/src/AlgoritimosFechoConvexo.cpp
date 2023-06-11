@@ -21,13 +21,11 @@ FechoConvexo* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
             }
 
         }
-
         na_envoltoria = prox_ponto;
 
         if(na_envoltoria->getX() == pontosDaEnvoltoria->getPrimeiro()->getPonto()->getX() && na_envoltoria->getY() == pontosDaEnvoltoria->getPrimeiro()->getPonto()->getY()){
             lopou = true;
         }
-
     }
 
     FechoConvexo* fecho = new FechoConvexo();
@@ -38,7 +36,6 @@ FechoConvexo* AlgoritimosFechoConvexo::marchaDeJarvis(Lista* listaDePontos){
     }
 
     return fecho;
-
 }
 
 FechoConvexo* AlgoritimosFechoConvexo::scanDeGraham(Lista* listaDePontos, int ord){
@@ -92,5 +89,4 @@ int AlgoritimosFechoConvexo::orientacao(Ponto* p1, Ponto* p2, Ponto* p3){
     } else {
         return 0;
     }
-
 }

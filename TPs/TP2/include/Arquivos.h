@@ -14,10 +14,7 @@ class Arquivos {
         
     public:
         Arquivos(string _nomeDoArquivo);
-        ~Arquivos();
-
         string lerArquivo();
-
 };
 
 #endif

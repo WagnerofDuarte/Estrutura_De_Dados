@@ -12,11 +12,9 @@ class CelulaListaPonto {
         
     public:
         CelulaListaPonto(int _x, int _y);
-
-        Ponto* getPonto();
-
-        CelulaListaPonto* getProx();
         void setProx(CelulaListaPonto *_prox);
+        Ponto* getPonto();
+        CelulaListaPonto* getProx();
 };
 
 #endif

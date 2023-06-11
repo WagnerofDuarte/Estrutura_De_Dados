@@ -10,7 +10,6 @@ class FechoConvexo{
 
     public:
         FechoConvexo();
-
         void imprimirFecho();
         void adicionarReta(Reta* reta);
 

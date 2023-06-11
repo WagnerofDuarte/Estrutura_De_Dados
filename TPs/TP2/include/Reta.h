@@ -10,13 +10,10 @@ class Reta {
 
     public:
         Reta(Ponto* A, Ponto* B);
-
-        Ponto* getPontoA();
         void setPontoA(Ponto* A);
-
-        Ponto* getPontoB();
         void setPontoB(Ponto* B);
-
+        Ponto* getPontoA();
+        Ponto* getPontoB();
 };
 
 #endif

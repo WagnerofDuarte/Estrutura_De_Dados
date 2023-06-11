@@ -1,11 +1,8 @@
 #include <Arquivos.h>
 
 Arquivos::Arquivos(string _nomeDoArquivo){
-
     nomeDoArquivo = _nomeDoArquivo;
-
 }
-
 
 string Arquivos::lerArquivo(){
 
@@ -23,6 +20,8 @@ string Arquivos::lerArquivo(){
 
         arquivoCompleto = arquivoCompleto + "|" + linha;
     }
+
+    arquivoDeLeitura.close();
 
     return arquivoCompleto + "|";
 

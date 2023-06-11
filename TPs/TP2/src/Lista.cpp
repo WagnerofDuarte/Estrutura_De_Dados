@@ -73,11 +73,8 @@ Ponto* Lista::menorPontoX(){
         if(aux == primeiro){
             lopou = true;
         }
-
     }
-
     return menorPonto;
-
 }
 
 Ponto* Lista::menorPontoY(){
@@ -104,9 +101,7 @@ Ponto* Lista::menorPontoY(){
         }
 
     }
-
     return menorPonto;
-
 }
 
 Ponto* Lista::pontoNaPosicao(int p){
@@ -118,9 +113,7 @@ Ponto* Lista::pontoNaPosicao(int p){
         aux = aux->getProx();
 
     }
-
     return aux->getPonto();
-
 }
 
 Reta* Lista::retaNaPosicao(int p){
@@ -132,9 +125,7 @@ Reta* Lista::retaNaPosicao(int p){
         aux = aux->getProx();
 
     }
-
     return aux->getReta();
-
 }
 
 CelulaListaPonto* Lista::celulaNaPosicao(int p){
@@ -146,9 +137,7 @@ CelulaListaPonto* Lista::celulaNaPosicao(int p){
         aux = aux->getProx();
 
     }
-
     return aux;
-
 }
 
 void Lista::insereFinal(int _x, int _y, Ponto* A, Ponto* B){
@@ -188,9 +177,7 @@ void Lista::insereFinal(int _x, int _y, Ponto* A, Ponto* B){
         }
 
     }
-
     tam++;
-
 }
 
 void Lista::insereInicio(int _x, int _y, Ponto* A, Ponto* B){
@@ -230,7 +217,6 @@ void Lista::insereInicio(int _x, int _y, Ponto* A, Ponto* B){
         }
 
     }
-    
     tam++; 
 }
 
@@ -241,8 +227,6 @@ void Lista::removeInicio(){
     primeiro = aux;
     ultimo->setProx(primeiro);
     tam--;
-
-
 }
 
 void Lista::imprime(){
@@ -254,9 +238,7 @@ void Lista::imprime(){
         cout << retaNaPosicao(i)->getPontoB()->getX() << " " << retaNaPosicao(i)->getPontoB()->getY() << endl;
 
     }
-
     cout << endl;
-
 }
 
 void Lista::limpa(){
@@ -272,8 +254,6 @@ void Lista::limpa(){
         p = primeiro->getProx();
 
     }
-
     ultimo = primeiro;
     tam = 0;
-
 }

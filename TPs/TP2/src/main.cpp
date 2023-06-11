@@ -12,9 +12,7 @@ int main(int argc, char** argv){
     /* LEITURA DO ARQUIVO */
 
     Arquivos* arquivoTeste = new Arquivos(argv[2]);
-    
     string conteudoDoArquivo = arquivoTeste->lerArquivo();
-
     Lista* listaDePontos = new Lista(true);
 
     /* ARMAZENAMENTO DOS PONTOS NA LISTA */

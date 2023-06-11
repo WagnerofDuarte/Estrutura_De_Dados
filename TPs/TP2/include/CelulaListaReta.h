@@ -12,11 +12,9 @@ class CelulaListaReta {
         
     public:
         CelulaListaReta(Ponto *A, Ponto *B);
-
-        Reta* getReta();
-
-        CelulaListaReta* getProx();
         void setProx(CelulaListaReta *_prox);
+        Reta* getReta();
+        CelulaListaReta* getProx();
 };
 
 #endif

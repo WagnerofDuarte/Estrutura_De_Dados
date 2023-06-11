@@ -1,10 +1,8 @@
 #include <CelulaListaReta.h>
 
 CelulaListaReta::CelulaListaReta(Ponto *A, Ponto *B){
-
     reta = new Reta(A, B);
     prox = NULL;
-
 }
 
 Reta* CelulaListaReta::getReta(){
