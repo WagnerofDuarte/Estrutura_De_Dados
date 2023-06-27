@@ -1,0 +1,3 @@
+Dando continuidade ao nosso Curso de Programacao C, vamos
+aprender uma aplicacao pratica para algumas das estruturas de dados que aprendemos aqui no curso, inclusive
+a arvore binaria.
