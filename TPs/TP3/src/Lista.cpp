@@ -42,11 +42,40 @@ void Lista::inserePosicao(int posicao){
 
 }
 
+void Lista::ordena(){
+
+    for(int i =  1; i < tam; i++){
+        CelulaLista* celula_aux = getPosicao(i);
+        for(int j = 0; j < i; j++){
+            if(getPosicao(j)->getFrequencia() > celula_aux->getFrequencia()){ 
+                if(i == tam - 1){
+                    ultimo = getPosicao(i - 1);
+                    if(j == 0){
+                        primeiro = celula_aux;
+                        break;
+                    }
+                }
+
+                getPosicao(i-1)->setProx(celula_aux->getProx());
+                celula_aux->setProx(getPosicao(j));
+
+                if(j != 0){
+                    getPosicao(j-1)->setProx(celula_aux);
+                } else {
+                    primeiro = celula_aux;
+                }
+
+                break;
+            }
+        }
+    }
+}
+
 CelulaLista* Lista::getPosicao(int posicao){
 
     CelulaLista* aux = primeiro;
 
-    for(int i = 0; i <= posicao; i++){
+    for(int i = 0; i < posicao; i++){
         aux = aux->getProx();
     }
 
@@ -74,8 +103,11 @@ void Lista::imprime(){
     CelulaLista* aux = primeiro;
 
     while(aux != NULL){
-        cout << endl << aux->getCaractere();
+        cout << endl << aux->getCaractere() << " " << aux->getFrequencia();
         aux = aux->getProx();
     }
+
+    cout << endl;
+    cout << endl;
 
 }

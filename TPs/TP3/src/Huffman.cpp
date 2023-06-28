@@ -23,3 +23,7 @@ void Huffman::calcularFrequencias(Lista* listaDeCaracteres){
         }
     }
 }
+
+Lista* Huffman::getListaDeFrequecias(){
+    return listaDeFrequencias;
+}

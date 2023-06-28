@@ -14,6 +14,8 @@ class Huffman {
         Huffman();
         void calcularFrequencias(Lista* listaDeCaracteres);
 
+        Lista* getListaDeFrequecias();
+
 };
 
 #endif
