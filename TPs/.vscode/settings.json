@@ -4,6 +4,9 @@
         "new": "cpp",
         "string": "cpp",
         "typeinfo": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "iosfwd": "cpp"
     }
 }

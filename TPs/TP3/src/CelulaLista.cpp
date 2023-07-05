@@ -6,6 +6,7 @@ CelulaLista::CelulaLista(char _caractere, bool _caractereValido){
     caractere = _caractere;
     caractereValido = _caractereValido;
     frequencia = 1;
+    arvoreFrequencias = new Arvore(caractere, frequencia);
 
 }
 
@@ -28,6 +29,15 @@ void CelulaLista::setProx(CelulaLista *_prox){
 int CelulaLista::getFrequencia(){
     return frequencia;
 }
+
+void CelulaLista::setFrequencia(int _frequencia){
+    frequencia = _frequencia;
+}
+
 void CelulaLista::incrementarFrequencia(){
     frequencia++;
+}
+
+Arvore* CelulaLista::getArvoreFrequencias(){
+    return arvoreFrequencias;
 }
